@@ -80,16 +80,10 @@ public Finestra() {
 				txtAreaInseriti.setText("");
 			}
 
-//			if (traghAttuale.getPercentualePieno()<sogliaViaggioMinimo && !arrivatoADestinazione){
-//				lblViaggi.setText("");
-//			}
-
 			if (arrivatoADestinazione){
 				lblViaggi.setForeground(Color.white);
 				lblViaggi.setText("...");
 			}
-
-
 
 			//riattivo se c'è qualcosina
 			if (!traghAttuale.isEmpty()){
@@ -118,7 +112,6 @@ public Finestra() {
 
 
 						//effettive aggiunte alla pila e azioni nella GUI
-//						traghAttuale.addAuto(toInsert);
 
 						if (traghAttuale.addAuto(toInsert)) {
 							//tutto apposto, posso finalmente inserire i dati nella pila
@@ -169,10 +162,6 @@ public Finestra() {
 				txtAreaUscita.setText("");
 			}
 
-
-
-
-
 			//se sono arrivato allora
 			if (arrivatoADestinazione){
 				//vedo se sta uscendo qualcosa
@@ -190,7 +179,6 @@ public Finestra() {
 
 				try {
 					//esco EFFETTIVAMENTE l'auto
-//					txtAreaInseriti.append("\n");
 
 					traghAttuale.pop();
 
@@ -200,7 +188,7 @@ public Finestra() {
 					//soliti colori
 					coloraBottoneAndProgredisci();
 
-					//da cancellare penso
+					//da cancellare penso, però anche no
 					if (traghAttuale.top()==null){
 						txtAreaUscita.append("Tutti le auto sono ora fuori."+"\n");
 						arrivatoADestinazione=false;
@@ -250,12 +238,8 @@ public Finestra() {
 					lblUltimoInserito.setForeground(coloreSuccesso);
 					lblUltimoInserito.setText("Traghetto in attesa");
 					btnEsciAuto.setEnabled(false);
-
 				}
 			}
-
-
-
 		}
 	});
 	btnAutoCasuale.setBackground(coloreSuccesso);
@@ -265,14 +249,11 @@ public Finestra() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-//			if(inputFieldLunghezza.getText()==null&&inputFieldTarga.getText()==null){
 				inputFieldLunghezza.setText(String.valueOf(ThreadLocalRandom.current().nextInt(1, 20 + 1)));
 
 				inputFieldTarga.setText(new RandomString(7).nextString());
 				btnAutoCasuale.setBackground(new Color(ThreadLocalRandom.current().nextInt(1, 255 + 1),
 						ThreadLocalRandom.current().nextInt(1, 255 + 1),ThreadLocalRandom.current().nextInt(1, 255 + 1)));
-//			}
-
 		}
 	});
 }
@@ -289,22 +270,6 @@ public void coloraBottoneAndProgredisci(){
 
 	btnCaricaAuto.setBackground(new Color(traghAttuale.getPercentualePieno()*2, 150-traghAttuale.getPercentualePieno
 			(), 150));
-
-
-	//coloro bottone come un semaforo, versione OLD
-//	if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/5){
-//		btnCaricaAuto.setBackground(new Color(205, 55, 0));
-//	}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/4){
-//		btnCaricaAuto.setBackground(new Color(205, 164, 0));
-//	}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/3){
-//		btnCaricaAuto.setBackground(new Color(178, 205, 0));
-//	}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/2){
-//		btnCaricaAuto.setBackground(new Color(57, 205, 0));
-//	}
-
-
-
-
 }
 
 public void setPosizioneCentro() {
