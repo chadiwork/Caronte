@@ -79,6 +79,10 @@ public Finestra() {
 				lblViaggi.setText("...");
 			}
 
+			if (traghAttuale.getPercentualePieno()<sogliaViaggioMinimo && !arrivatoADestinazione){
+				lblViaggi.setText("");
+			}
+
 			//colore default
 			btnCaricaAuto.setBackground(new Color(0, 255, 60));
 
@@ -151,6 +155,23 @@ public Finestra() {
 				txtAreaUscita.setText("");
 			}
 
+			//controllo se è abbastanza pieno, sempre se non sono ancora a destinazione
+			if (traghAttuale.getPercentualePieno()>=sogliaViaggioMinimo && !arrivatoADestinazione) {
+				lblViaggi.setForeground(Color.white);
+				lblViaggi.setText("Viaggio in corso...");
+
+				btnEsciAuto.setText("Esci l'auto");
+
+				arrivatoADestinazione=true;
+
+				coloraBottoneAndProgredisci();
+
+			} else if (traghAttuale.getPercentualePieno()<sogliaViaggioMinimo && !arrivatoADestinazione){
+				lblViaggi.setForeground(Color.red);
+				lblViaggi.setText("Il traghetto non è ancora stato riempito a sufficienza!");
+
+			}
+
 			//se sono arrivato allora
 			if (arrivatoADestinazione){
 				//vedo se sta uscendo qualcosa
@@ -161,6 +182,8 @@ public Finestra() {
 
 				txtAreaUscita.append("Esce auto: "+inUscita.getTarga()+"\n");
 
+				lblViaggi.setForeground(coloreSuccesso);
+				lblViaggi.setText("Liberato "+inUscita.getLunghezza()+" di spazio");
 
 				try {
 					//esco EFFETTIVAMENTE l'auto
@@ -195,22 +218,7 @@ public Finestra() {
 			}
 
 
-			//controllo se è abbastanza pieno, sempre se non sono ancora a destinazione
-			if (traghAttuale.getPercentualePieno()>=sogliaViaggioMinimo && !arrivatoADestinazione) {
-				lblViaggi.setForeground(Color.white);
-				lblViaggi.setText("Viaggio in corso...");
 
-				btnEsciAuto.setText("Esci l'auto");
-
-				arrivatoADestinazione=true;
-
-				coloraBottoneAndProgredisci();
-
-			} else if (traghAttuale.getPercentualePieno()<sogliaViaggioMinimo && !arrivatoADestinazione){
-				lblViaggi.setForeground(Color.red);
-				lblViaggi.setText("Il traghetto non è ancora stato riempito a sufficienza!");
-
-			}
 
 		}
 	});
@@ -231,7 +239,7 @@ public Finestra() {
 public static void main(String[] args) throws Exception {
 
 	//main
-	Finestra f = new Finestra("Thall | By Hopeless13",600,350);
+	Finestra f = new Finestra("Caronte 1.0 | By Hopeless13",600,350);
 
 }
 public void coloraBottoneAndProgredisci(){
