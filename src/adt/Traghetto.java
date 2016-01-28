@@ -31,15 +31,15 @@ public void setNumeroAuto(int numeroAuto) {
 	this.numeroAuto = numeroAuto;
 }
 
-public void addAuto(Auto autoDaAggiungere){
+public boolean addAuto(Auto autoDaAggiungere){
 	int lunghAuto=autoDaAggiungere.getLunghezza();
 
 	if (this.lunghMAX>this.lunghCORR+lunghAuto){
 		this.lunghCORR = this.lunghCORR +lunghAuto;
 		this.numeroAuto=this.numeroAuto+1;
 		this.push(autoDaAggiungere);
-
-	}
+		return true;
+	} else return false;
 }
 
 public int getSpazioRimanente(){
@@ -48,5 +48,10 @@ public int getSpazioRimanente(){
 
 public boolean isTraghettoPieno(){
 	return getLunghMAX() <= getLunghCORR();
+}
+
+public int getPercentualePieno() {
+	float risultato = ((float)this.getLunghCORR() ) / ((float) this.getLunghMAX());
+	return (int) (risultato * 100);
 }
 }
