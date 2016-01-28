@@ -214,7 +214,7 @@
                   <component id="90b3a" class="javax.swing.JTextArea" binding="txtAreaInseriti">
                     <constraints/>
                     <properties>
-                      <editable value="true"/>
+                      <editable value="false"/>
                       <rows value="0"/>
                       <text value="Ancora nulla qui..."/>
                     </properties>
