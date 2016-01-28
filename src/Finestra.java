@@ -18,15 +18,15 @@ public class Finestra extends JFrame {
 	private JPanel pnlCenter;
 	private JPanel pnlDX;
 	private JTextArea txtAreaViaggi;
-	private JPanel pnlTarga;
-	private JTextField inputFieldTarga;
-	private JTextField inputFieldLunghezza;
-	private JPanel pnlLunghezza;
-	private JPanel pnlRiempimentoTraghetto;
-	private JPanel pnlStoriaInserimenti;
-	private JLabel lblUltimoInserito;
-	private JButton btnEseguiViaggio;
-	private JTextArea txtAreaInseriti;
+    private JPanel pnlTarga;
+    private JTextField inputFieldTarga;
+    private JTextField inputFieldLunghezza;
+    private JPanel pnlLunghezza;
+    private JPanel pnlRiempimentoTraghetto;
+    private JPanel pnlStoriaInserimenti;
+    private JLabel lblUltimoInserito;
+    private JButton btnEseguiViaggio;
+    private JTextArea txtAreaInseriti;
 	private JPanel pnlTasti;
 	private JLabel lblEseguite;
 	private boolean semaforo;
@@ -49,11 +49,11 @@ public class Finestra extends JFrame {
 
 	}
 
-	public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
-		Finestra f = new Finestra("Traghettami il pene| By Hopeless13",600,350);
+        Finestra f = new Finestra("Traghettami il pene| By Hopeless13",600,350);
 
-	}
+    }
 
 
 	public void setPosizioneCentro() {

@@ -67,8 +67,8 @@ public class nodo<T>{
      * testuale del nodo
      * @return rappresentazione testuale del nodo
      */
-    // @Override
-    // public String toString(){
+   // @Override
+   // public String toString(){
     //    return info;
     //}
     /**
@@ -81,10 +81,10 @@ public class nodo<T>{
      * @return 1 se questo oggetto è maggiore dell'oggetto da confrontare
      * 0 se sono uguali, -1 se l'oggetto è minore
      */
-    /** public int compareTo(Object o) {
-     int ris=0;
-     nodo n=(nodo) o;
-     ris=this.getInfo().compareTo(n.getInfo());
-     return ris;
-     }*/
+   /** public int compareTo(Object o) {
+        int ris=0;
+        nodo n=(nodo) o;
+        ris=this.getInfo().compareTo(n.getInfo());
+        return ris;
+    }*/
 }
