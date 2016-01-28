@@ -34,9 +34,9 @@ public void setNumeroAuto(int numeroAuto) {
 public void addAuto(Auto autoDaAggiungere){
 	int lunghAuto=autoDaAggiungere.getLunghezza();
 
-	if (lunghMAX>lunghCORR+lunghAuto){
-		lunghCORR = lunghCORR +lunghAuto;
-		numeroAuto++;
+	if (this.lunghMAX>this.lunghCORR+lunghAuto){
+		this.lunghCORR = this.lunghCORR +lunghAuto;
+		this.numeroAuto=this.numeroAuto+1;
 		this.push(autoDaAggiungere);
 
 	}

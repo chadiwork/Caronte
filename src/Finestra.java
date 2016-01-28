@@ -55,40 +55,48 @@ public Finestra() {
 	btnCaricaAuto.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+
+			String targaTMP=inputFieldTarga.getText();
+
 			//aggiunge auto con dati da field(parsati) al traghetto
 
 			//controllo che sta aggiungendo qualcosa di sensato
-			if (inputFieldLunghezza.getText().matches("^[-+]?\\d+(\\.\\d+)?$")) {
+			if (targaTMP.length()==5) {
+				if (inputFieldLunghezza.getText().matches("^[-+]?\\d+(\\.\\d+)?$")) {
 
-				//creo auto da aggiungere alla pila
-				Auto toInsert;
+					//creo auto da aggiungere alla pila
+					Auto toInsert;
 
-				String targaTMP=inputFieldTarga.getText();
-				int lungezzaTMP=Integer.parseInt(inputFieldLunghezza.getText());
+					int lungezzaTMP=Integer.parseInt(inputFieldLunghezza.getText());
 
-				toInsert = new Auto(targaTMP,lungezzaTMP);
+					toInsert = new Auto(targaTMP,lungezzaTMP);
 
-				if (!traghAttuale.isTraghettoPieno()){
+					if (!traghAttuale.isTraghettoPieno()){
 
-					//inizializzazione estetica
-					if (txtAreaInseriti.getText().equals("Ancora nulla qui...")){
-						txtAreaInseriti.setText("");
+						//inizializzazione estetica
+						if (txtAreaInseriti.getText().equals("Ancora nulla qui...")){
+							txtAreaInseriti.setText("");
+						}
+						//effettive aggiunte alla pila e azioni nella GUI
+						traghAttuale.addAuto(toInsert);
+						txtAreaInseriti.append("Auto: "+toInsert.getTarga()+" lunga "+toInsert.getLunghezza()+" caricata"+"\n");
+						txtAreaInseriti.append("Totale mezzi: "+ traghAttuale.getNumeroAuto()+" | spazio rimanente:"+ traghAttuale
+								.getSpazioRimanente()+"\n");
+
+						//pulisco campo inserimento
+						inputFieldTarga.setText("");
+						inputFieldLunghezza.setText("");
+						lblUltimoInserito.setText("Auto "+traghAttuale.getNumeroAuto()+" aggiunta correttamente");
+
+					} else {
+						lblUltimoInserito.setText("Il traghetto è già pieno!");
 					}
-					//effettive aggiunte alla pila e azioni nella GUI
-					traghAttuale.addAuto(toInsert);
-					txtAreaInseriti.append("Auto: "+toInsert.getTarga()+" lunga "+toInsert.getLunghezza()+" caricata"+"\n");
-					txtAreaInseriti.append("Totale mezzi: "+ traghAttuale.getNumeroAuto()+" | spazio rimanente:"+ traghAttuale
-							.getSpazioRimanente()+"\n");
-
-					//pulisco campo inserimento
-					inputFieldTarga.setText("");
-					inputFieldLunghezza.setText("");
-
 				} else {
-					lblUltimoInserito.setText("Il traghetto è già pieno!");
+					lblUltimoInserito.setText("Inserisci solo numeri (interi) nel campo lunghezza!");
 				}
 			} else {
-				lblUltimoInserito.setText("Inserisci solo numeri (interi) nel campo lunghezza!");
+				lblUltimoInserito.setText("Il campo targa deve contenere esattamente 5 caratteri!");
+
 			}
 
 
