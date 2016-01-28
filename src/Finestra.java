@@ -1,8 +1,8 @@
 import adt.Auto;
+import adt.Traghetto;
 
 import javax.swing.*;
 import java.awt.*;
-import adt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -33,7 +33,9 @@ public class Finestra extends JFrame {
 	private JPanel pnlTasti;
 	private JLabel lblEseguite;
 	private boolean semaforo;
-    private Pila <Auto> traghetto=new Pila<>();
+
+	//costruisco il traghetto con dimensione massima a piacere(200)
+    private Traghetto <Auto> traghMain =new Traghetto<>(200);
 
 	public Finestra(String title, int larghezza, int altezza) throws HeadlessException {
 		super(title);
@@ -54,11 +56,21 @@ public class Finestra extends JFrame {
         btnCaricaAuto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //aggiunge auto con dati da field(parsati) al traghetto
+                //aggiunge auto con dati da field(parsati) al traghMain
                 Auto toInsert=new Auto((String)inputFieldTarga.getText(),Integer.parseInt(inputFieldLunghezza.getText()));
-                traghetto.push(toInsert);
-                if (traghetto.getLunghezza())
-                    //TODO fai controllo se il traghetto è pieno e disabilita l'input del tasto
+
+                if (!traghMain.isTraghettoPieno()){
+
+	                traghMain.addAuto(toInsert);
+	                txtAreaInseriti.append("Auto: "+toInsert.getTarga()+" lunga "+toInsert.getLunghezza()+" caricata");
+	                txtAreaInseriti.append("Posizione: "+traghMain.getNumeroAuto()+" | spazio rimanente:"+traghMain
+			                .getSpazioRimanente());
+
+	                System.out.println("e = [" + e + "]");
+                } else {
+	                lblUltimoInserito.setText("Il traghetto è già pieno!");
+                }
+
 
             }
         });
