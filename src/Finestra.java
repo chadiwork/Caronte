@@ -17,10 +17,10 @@ private JPanel rootPanel;
 private JTextField inputField;
 private JPanel pnlStoriaViaggi;
 private JButton btnCaricaAuto;
-private JLabel lblConteggio;
+private JLabel lblViaggi;
 private JPanel pnlCenter;
 private JPanel pnlDX;
-private JTextArea txtAreaViaggi;
+private JTextArea txtAreaUscita;
 private JPanel pnlTarga;
 private JTextField inputFieldTarga;
 private JTextField inputFieldLunghezza;
@@ -28,7 +28,7 @@ private JPanel pnlLunghezza;
 private JPanel pnlRiempimentoTraghetto;
 private JPanel pnlStoriaInserimenti;
 private JLabel lblUltimoInserito;
-private JButton btnEseguiViaggio;
+private JButton btnEsciAuto;
 private JTextArea txtAreaInseriti;
 private JPanel pnlTasti;
 private JProgressBar progressCapienzaTraghetto;
@@ -39,7 +39,11 @@ private String semaforo; //può essere solo R,Y,G (red,yellow,green), l'ho usato
 // booleano
 private int dimensioneTraghetto=100;//tarata per essere 100 ma modificabile
 private int caratteriDiTarga=7;//tarata per 7 ma modificabile
+private int sogliaViaggioMinimo=75;//tarata per 75 ma modificabile
+private boolean arrivatoADestinazione=false;
+
 private Color coloreSuccesso =new Color(0, 132, 0);
+private Color coloreMain =new Color(0, 146, 255);
 
 //costruisco il traghetto con dimensione massima a piacere(200)
 private Traghetto <Auto> traghAttuale =new Traghetto<>(dimensioneTraghetto);
@@ -60,12 +64,17 @@ public Finestra(String title, int larghezza, int altezza) throws HeadlessExcepti
 
 public Finestra() {
 
-	btnCaricaAuto.setBackground(new Color(0, 146, 255));
+	btnCaricaAuto.setBackground(coloreMain);
 	btnCaricaAuto.setForeground(Color.white);
 
 	btnCaricaAuto.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+
+			if (arrivatoADestinazione){
+				lblViaggi.setForeground(Color.white);
+				lblViaggi.setText("...");
+			}
 
 			//colore default
 			btnCaricaAuto.setBackground(new Color(0, 255, 60));
@@ -137,6 +146,68 @@ public Finestra() {
 				lblUltimoInserito.setForeground(Color.red);
 				lblUltimoInserito.setText("Il campo targa deve contenere esattamente " +caratteriDiTarga +" caratteri! Ricontrolla...");
 			}
+		}
+	});
+	btnEsciAuto.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			//inizializzazione estetica
+			if (txtAreaUscita.getText().equals("Ancora nulla qui...")){
+				txtAreaUscita.setText("");
+			}
+
+			//se sono arrivato allora
+			if (arrivatoADestinazione){
+
+				btnEsciAuto.setText("Esci l'auto");
+
+				try {
+					//esco l'auto
+					Auto inUscita=(Auto)traghAttuale.top();
+
+					txtAreaUscita.append("Esce auto: "+inUscita.getTarga()+"\n");
+					txtAreaUscita.append("Mezzi ancora dentro: "+ traghAttuale.getNumeroAuto()+"\n");
+
+					traghAttuale.pop();
+
+					//rimetto apposto il progresso
+					progressCapienzaTraghetto.setValue(traghAttuale.getPercentualePieno());
+					//coloro bottone come un semaforo
+					if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/5){
+						btnCaricaAuto.setBackground(new Color(205, 55, 0));
+					}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/4){
+						btnCaricaAuto.setBackground(new Color(205, 164, 0));
+					}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/3){
+						btnCaricaAuto.setBackground(new Color(178, 205, 0));
+					}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/2){
+						btnCaricaAuto.setBackground(new Color(57, 205, 0));
+					}
+
+				} catch (Exception e1) {
+					//se è vuota allora:
+					txtAreaUscita.append("Tutti le auto sono ora fuori."+"\n");
+					arrivatoADestinazione=false;
+					btnEsciAuto.setText("Esegui viaggio");
+				}
+			}
+
+
+			//controllo se è abbastanza pieno, sempre se non sono ancora a destinazione
+			if (traghAttuale.getPercentualePieno()>=sogliaViaggioMinimo && !arrivatoADestinazione) {
+				lblViaggi.setForeground(Color.white);
+				lblViaggi.setText("Viaggio in corso...");
+
+				btnEsciAuto.setText("Esci l'auto");
+
+				arrivatoADestinazione=true;
+
+			} else if (traghAttuale.getPercentualePieno()<sogliaViaggioMinimo && !arrivatoADestinazione){
+				lblViaggi.setForeground(Color.red);
+				lblViaggi.setText("Il traghetto non è ancora stato riempito a sufficienza!");
+
+			}
+
 		}
 	});
 }

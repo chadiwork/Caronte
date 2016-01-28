@@ -36,7 +36,7 @@ public boolean addAuto(Auto autoDaAggiungere){
 
 	if (this.lunghMAX>this.lunghCORR+lunghAuto){
 		this.lunghCORR = this.lunghCORR +lunghAuto;
-		this.numeroAuto=this.numeroAuto+1;
+		this.numeroAuto++;
 		this.push(autoDaAggiungere);
 		return true;
 	} else return false;
@@ -53,5 +53,16 @@ public boolean isTraghettoPieno(){
 public int getPercentualePieno() {
 	float risultato = ((float)this.getLunghCORR() ) / ((float) this.getLunghMAX());
 	return (int) (risultato * 100);
+}
+
+@Override
+public void pop() throws Exception {
+	try {
+		super.pop();
+		this.numeroAuto--;
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+
 }
 }

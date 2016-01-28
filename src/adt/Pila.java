@@ -37,8 +37,6 @@ public void pop() throws Exception{
 	if (this.isEmpty()) throw new Exception ("impossibile effettuare il pop perchè la pila è vuota");
 	ultimo=ultimo.getNext();
 
-
-
 }
 public T top(){
 	return (T)ultimo.getInfo();
