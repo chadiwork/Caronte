@@ -15,6 +15,8 @@ package adt;
 //implementazione pila con lista (push si aggiunge un elemento in testa, pop si elimina la testa)
 public class Pila<T> {
     private nodo ultimo;
+    //MODIFICA
+    int lunghezza=150;
     public Pila(){
         //inizializzo la pila, il primo nodo è null
         ultimo=null;
@@ -40,5 +42,13 @@ public class Pila<T> {
     }
     public T top(){
         return (T)ultimo.getInfo();
+    }
+
+    public int getLunghezza() {
+        return lunghezza;
+    }
+
+    public void setLunghezza(int lunghezza) {
+        this.lunghezza = lunghezza;
     }
 }
