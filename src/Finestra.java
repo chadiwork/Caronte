@@ -116,18 +116,7 @@ public Finestra() {
 							lblUltimoInserito.setForeground(coloreSuccesso);
 							lblUltimoInserito.setText("Auto "+traghAttuale.getNumeroAuto()+" aggiunta correttamente");
 
-							progressCapienzaTraghetto.setValue(traghAttuale.getPercentualePieno());
-
-							//coloro bottone come un semaforo
-							if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/5){
-								btnCaricaAuto.setBackground(new Color(205, 55, 0));
-							}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/4){
-								btnCaricaAuto.setBackground(new Color(205, 164, 0));
-							}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/3){
-								btnCaricaAuto.setBackground(new Color(178, 205, 0));
-							}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/2){
-								btnCaricaAuto.setBackground(new Color(57, 205, 0));
-							}
+							coloraBottoneAndProgredisci();
 
 						} else {
 							lblUltimoInserito.setForeground(Color.red);
@@ -167,28 +156,28 @@ public Finestra() {
 					Auto inUscita=(Auto)traghAttuale.top();
 
 					txtAreaUscita.append("Esce auto: "+inUscita.getTarga()+"\n");
-					txtAreaUscita.append("Mezzi ancora dentro: "+ traghAttuale.getNumeroAuto()+"\n");
+					txtAreaUscita.append("Mezzi ancora dentro: "+ traghAttuale.getNumeroAuto()+" spazio " +
+							"disponibile:"+traghAttuale.getSpazioRimanente()+"\n");
 
 					traghAttuale.pop();
 
-					//rimetto apposto il progresso
-					progressCapienzaTraghetto.setValue(traghAttuale.getPercentualePieno());
-					//coloro bottone come un semaforo
-					if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/5){
-						btnCaricaAuto.setBackground(new Color(205, 55, 0));
-					}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/4){
-						btnCaricaAuto.setBackground(new Color(205, 164, 0));
-					}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/3){
-						btnCaricaAuto.setBackground(new Color(178, 205, 0));
-					}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/2){
-						btnCaricaAuto.setBackground(new Color(57, 205, 0));
+					coloraBottoneAndProgredisci();
+
+					if (traghAttuale.top()==null){
+						txtAreaUscita.append("Tutti le auto sono ora fuori."+"\n");
+						arrivatoADestinazione=false;
+						btnEsciAuto.setText("Esegui viaggio");
+
+						System.out.println("if giusto scatenato");
 					}
 
 				} catch (Exception e1) {
-					//se è vuota allora:
+//					se è vuota allora:
 					txtAreaUscita.append("Tutti le auto sono ora fuori."+"\n");
 					arrivatoADestinazione=false;
 					btnEsciAuto.setText("Esegui viaggio");
+
+
 				}
 			}
 
@@ -201,6 +190,8 @@ public Finestra() {
 				btnEsciAuto.setText("Esci l'auto");
 
 				arrivatoADestinazione=true;
+
+				coloraBottoneAndProgredisci();
 
 			} else if (traghAttuale.getPercentualePieno()<sogliaViaggioMinimo && !arrivatoADestinazione){
 				lblViaggi.setForeground(Color.red);
@@ -218,7 +209,21 @@ public static void main(String[] args) throws Exception {
 	Finestra f = new Finestra("Thall | By Hopeless13",600,350);
 
 }
+public void coloraBottoneAndProgredisci(){
+	//rimetto apposto il progresso
+	progressCapienzaTraghetto.setValue(traghAttuale.getPercentualePieno());
+	//coloro bottone come un semaforo
+	if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/5){
+		btnCaricaAuto.setBackground(new Color(205, 55, 0));
+	}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/4){
+		btnCaricaAuto.setBackground(new Color(205, 164, 0));
+	}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/3){
+		btnCaricaAuto.setBackground(new Color(178, 205, 0));
+	}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/2){
+		btnCaricaAuto.setBackground(new Color(57, 205, 0));
+	}
 
+}
 
 public void setPosizioneCentro() {
 	// valuta le dimensioni della finestra
@@ -234,6 +239,7 @@ public void setPosizioneCentro() {
 	this.setLocation(x, y);
 }
 }
+
 
 
 

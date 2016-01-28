@@ -46,6 +46,8 @@ public int getSpazioRimanente(){
 	return this.lunghMAX-this.lunghCORR;
 }
 
+
+
 public boolean isTraghettoPieno(){
 	return getLunghMAX() <= getLunghCORR();
 }
@@ -58,8 +60,10 @@ public int getPercentualePieno() {
 @Override
 public void pop() throws Exception {
 	try {
-		super.pop();
 		this.numeroAuto--;
+		Auto tmp = (Auto)this.top();
+		this.lunghCORR=this.lunghCORR-tmp.getLunghezza();
+		super.pop();
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
