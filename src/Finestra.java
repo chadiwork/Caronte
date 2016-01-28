@@ -1,9 +1,11 @@
 import adt.Auto;
 import adt.Traghetto;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Creato da Vlady il 15/01/2016.
@@ -32,6 +34,7 @@ private JButton btnEsciAuto;
 private JTextArea txtAreaInseriti;
 private JPanel pnlTasti;
 private JProgressBar progressCapienzaTraghetto;
+private JButton btnAutoCasuale;
 private JLabel lblEseguite;
 
 //inizio variabili d'appoggio
@@ -122,6 +125,7 @@ public Finestra() {
 							lblUltimoInserito.setForeground(Color.red);
 							lblUltimoInserito.setText("Il traghetto supererebbe la capienza massima. Auto non " +
 									"aggiunta");
+
 						}
 					} else {
 						lblUltimoInserito.setForeground(Color.red);
@@ -135,6 +139,7 @@ public Finestra() {
 				lblUltimoInserito.setForeground(Color.red);
 				lblUltimoInserito.setText("Il campo targa deve contenere esattamente " +caratteriDiTarga +" caratteri! Ricontrolla...");
 			}
+			coloraBottoneAndProgredisci();
 		}
 	});
 	btnEsciAuto.addActionListener(new ActionListener() {
@@ -148,21 +153,28 @@ public Finestra() {
 
 			//se sono arrivato allora
 			if (arrivatoADestinazione){
+				//vedo se sta uscendo qualcosa
 
 				btnEsciAuto.setText("Esci l'auto");
 
-				try {
-					//esco l'auto
-					Auto inUscita=(Auto)traghAttuale.top();
+				Auto inUscita=(Auto)traghAttuale.top();
 
-					txtAreaUscita.append("Esce auto: "+inUscita.getTarga()+"\n");
-					txtAreaUscita.append("Mezzi ancora dentro: "+ traghAttuale.getNumeroAuto()+" spazio " +
-							"disponibile:"+traghAttuale.getSpazioRimanente()+"\n");
+				txtAreaUscita.append("Esce auto: "+inUscita.getTarga()+"\n");
+
+
+				try {
+					//esco EFFETTIVAMENTE l'auto
+					txtAreaInseriti.append("\n");
 
 					traghAttuale.pop();
 
+					txtAreaUscita.append("Mezzi ancora dentro: "+ traghAttuale.getNumeroAuto()+" spazio " +
+							"disponibile:"+traghAttuale.getSpazioRimanente()+"\n");
+
+					//soliti colori
 					coloraBottoneAndProgredisci();
 
+					//da cancellare penso
 					if (traghAttuale.top()==null){
 						txtAreaUscita.append("Tutti le auto sono ora fuori."+"\n");
 						arrivatoADestinazione=false;
@@ -173,10 +185,11 @@ public Finestra() {
 
 				} catch (Exception e1) {
 //					se è vuota allora:
-					txtAreaUscita.append("Tutti le auto sono ora fuori."+"\n");
+					txtAreaUscita.append("Non ci sono auto da far uscire"+"\n");
 					arrivatoADestinazione=false;
 					btnEsciAuto.setText("Esegui viaggio");
-
+					txtAreaInseriti.setText("Traghetto vuoto");
+					coloraBottoneAndProgredisci();
 
 				}
 			}
@@ -201,6 +214,18 @@ public Finestra() {
 
 		}
 	});
+	btnAutoCasuale.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+//			if(inputFieldLunghezza.getText()==null&&inputFieldTarga.getText()==null){
+				inputFieldLunghezza.setText(String.valueOf(ThreadLocalRandom.current().nextInt(1, 20 + 1)));
+
+				inputFieldTarga.setText(new RandomString(7).nextString());
+//			}
+
+		}
+	});
 }
 
 public static void main(String[] args) throws Exception {
@@ -213,15 +238,19 @@ public void coloraBottoneAndProgredisci(){
 	//rimetto apposto il progresso
 	progressCapienzaTraghetto.setValue(traghAttuale.getPercentualePieno());
 	//coloro bottone come un semaforo
-	if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/5){
-		btnCaricaAuto.setBackground(new Color(205, 55, 0));
-	}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/4){
-		btnCaricaAuto.setBackground(new Color(205, 164, 0));
-	}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/3){
-		btnCaricaAuto.setBackground(new Color(178, 205, 0));
-	}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/2){
-		btnCaricaAuto.setBackground(new Color(57, 205, 0));
-	}
+//	if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/5){
+//		btnCaricaAuto.setBackground(new Color(205, 55, 0));
+//	}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/4){
+//		btnCaricaAuto.setBackground(new Color(205, 164, 0));
+//	}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/3){
+//		btnCaricaAuto.setBackground(new Color(178, 205, 0));
+//	}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/2){
+//		btnCaricaAuto.setBackground(new Color(57, 205, 0));
+//	}
+
+	btnCaricaAuto.setBackground(new Color(traghAttuale.getPercentualePieno()*2, 150-traghAttuale.getPercentualePieno
+			(), 150));
+
 
 }
 
