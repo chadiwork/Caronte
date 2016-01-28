@@ -74,13 +74,26 @@ public Finestra() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
+			//inizializzazione estetica: magia, non toccare
+			if (txtAreaInseriti.getText().equals("Ancora nulla qui...")||txtAreaInseriti.getText().equals("Traghetto " +
+					"vuoto")|| traghAttuale.getPercentualePieno()<sogliaViaggioMinimo && !arrivatoADestinazione){
+				txtAreaInseriti.setText("");
+			}
+
+//			if (traghAttuale.getPercentualePieno()<sogliaViaggioMinimo && !arrivatoADestinazione){
+//				lblViaggi.setText("");
+//			}
+
 			if (arrivatoADestinazione){
 				lblViaggi.setForeground(Color.white);
 				lblViaggi.setText("...");
 			}
 
-			if (traghAttuale.getPercentualePieno()<sogliaViaggioMinimo && !arrivatoADestinazione){
-				lblViaggi.setText("");
+
+
+			//riattivo se c'è qualcosina
+			if (!traghAttuale.isEmpty()){
+				btnEsciAuto.setEnabled(true);
 			}
 
 			//colore default
@@ -103,10 +116,7 @@ public Finestra() {
 
 					if (!traghAttuale.isTraghettoPieno()){
 
-						//inizializzazione estetica
-						if (txtAreaInseriti.getText().equals("Ancora nulla qui...")){
-							txtAreaInseriti.setText("");
-						}
+
 						//effettive aggiunte alla pila e azioni nella GUI
 //						traghAttuale.addAuto(toInsert);
 
@@ -129,7 +139,6 @@ public Finestra() {
 							lblUltimoInserito.setForeground(Color.red);
 							lblUltimoInserito.setText("Il traghetto supererebbe la capienza massima. Auto non " +
 									"aggiunta");
-
 						}
 					} else {
 						lblUltimoInserito.setForeground(Color.red);
@@ -146,37 +155,31 @@ public Finestra() {
 			coloraBottoneAndProgredisci();
 		}
 	});
+
+	btnEsciAuto.setBackground(coloreMain);
+	btnEsciAuto.setForeground(Color.white);
+
 	btnEsciAuto.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
+			btnEsciAuto.setBackground(coloreMain);
 			//inizializzazione estetica
 			if (txtAreaUscita.getText().equals("Ancora nulla qui...")){
 				txtAreaUscita.setText("");
 			}
 
-			//controllo se è abbastanza pieno, sempre se non sono ancora a destinazione
-			if (traghAttuale.getPercentualePieno()>=sogliaViaggioMinimo && !arrivatoADestinazione) {
-				lblViaggi.setForeground(Color.white);
-				lblViaggi.setText("Viaggio in corso...");
 
-				btnEsciAuto.setText("Esci l'auto");
 
-				arrivatoADestinazione=true;
 
-				coloraBottoneAndProgredisci();
-
-			} else if (traghAttuale.getPercentualePieno()<sogliaViaggioMinimo && !arrivatoADestinazione){
-				lblViaggi.setForeground(Color.red);
-				lblViaggi.setText("Il traghetto non è ancora stato riempito a sufficienza!");
-
-			}
 
 			//se sono arrivato allora
 			if (arrivatoADestinazione){
 				//vedo se sta uscendo qualcosa
 
 				btnEsciAuto.setText("Esci l'auto");
+				btnEsciAuto.setBackground(coloreSuccesso);
+
 
 				Auto inUscita=(Auto)traghAttuale.top();
 
@@ -187,7 +190,7 @@ public Finestra() {
 
 				try {
 					//esco EFFETTIVAMENTE l'auto
-					txtAreaInseriti.append("\n");
+//					txtAreaInseriti.append("\n");
 
 					traghAttuale.pop();
 
@@ -213,15 +216,51 @@ public Finestra() {
 					btnEsciAuto.setText("Esegui viaggio");
 					txtAreaInseriti.setText("Traghetto vuoto");
 					coloraBottoneAndProgredisci();
+					btnCaricaAuto.setEnabled(true);
+
+				}
+			}
+
+			//controllo se è abbastanza pieno, sempre se non sono ancora a destinazione
+			if (traghAttuale.getPercentualePieno()>=sogliaViaggioMinimo && !arrivatoADestinazione) {
+				lblViaggi.setForeground(Color.blue);
+				lblViaggi.setText("Viaggio in corso...");
+
+				btnEsciAuto.setText("Esci l'auto");
+
+				arrivatoADestinazione=true;
+
+				//disabilito bottone inserimenti e dico che è successo
+				btnCaricaAuto.setEnabled(false);
+				lblUltimoInserito.setForeground(coloreMain);
+				lblUltimoInserito.setText("Inserimento disabilitato: auto in uscita");
+
+				coloraBottoneAndProgredisci();
+
+			} else if (traghAttuale.getPercentualePieno()<sogliaViaggioMinimo && !arrivatoADestinazione){
+				lblViaggi.setForeground(Color.red);
+				lblViaggi.setText("Il traghetto non è ancora stato riempito a sufficienza!");
+
+
+				//rimette appostso robe
+				if(traghAttuale.isEmpty()){
+					lblViaggi.setForeground(coloreMain);
+					lblViaggi.setText("In attesa degli inserimenti, traghetto fermo");
+
+					lblUltimoInserito.setForeground(coloreSuccesso);
+					lblUltimoInserito.setText("Traghetto in attesa");
+					btnEsciAuto.setEnabled(false);
 
 				}
 			}
 
 
 
-
 		}
 	});
+	btnAutoCasuale.setBackground(coloreSuccesso);
+	btnAutoCasuale.setForeground(Color.white);
+
 	btnAutoCasuale.addActionListener(new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -230,6 +269,8 @@ public Finestra() {
 				inputFieldLunghezza.setText(String.valueOf(ThreadLocalRandom.current().nextInt(1, 20 + 1)));
 
 				inputFieldTarga.setText(new RandomString(7).nextString());
+				btnAutoCasuale.setBackground(new Color(ThreadLocalRandom.current().nextInt(1, 255 + 1),
+						ThreadLocalRandom.current().nextInt(1, 255 + 1),ThreadLocalRandom.current().nextInt(1, 255 + 1)));
 //			}
 
 		}
@@ -245,7 +286,12 @@ public static void main(String[] args) throws Exception {
 public void coloraBottoneAndProgredisci(){
 	//rimetto apposto il progresso
 	progressCapienzaTraghetto.setValue(traghAttuale.getPercentualePieno());
-	//coloro bottone come un semaforo
+
+	btnCaricaAuto.setBackground(new Color(traghAttuale.getPercentualePieno()*2, 150-traghAttuale.getPercentualePieno
+			(), 150));
+
+
+	//coloro bottone come un semaforo, versione OLD
 //	if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/5){
 //		btnCaricaAuto.setBackground(new Color(205, 55, 0));
 //	}else if(traghAttuale.getSpazioRimanente()<traghAttuale.getLunghMAX()/4){
@@ -256,8 +302,7 @@ public void coloraBottoneAndProgredisci(){
 //		btnCaricaAuto.setBackground(new Color(57, 205, 0));
 //	}
 
-	btnCaricaAuto.setBackground(new Color(traghAttuale.getPercentualePieno()*2, 150-traghAttuale.getPercentualePieno
-			(), 150));
+
 
 
 }
