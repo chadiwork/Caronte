@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9098d7c6-524e-4f67-947b-0e7587f61ecd" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Finestra.form" afterPath="$PROJECT_DIR$/src/Finestra.form" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Finestra.java" afterPath="$PROJECT_DIR$/src/Finestra.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/adt/Traghetto.java" afterPath="$PROJECT_DIR$/src/adt/Traghetto.java" />
     </list>
     <ignored path="Pila_Case_Traghetto.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,7 +30,7 @@
         <entry file="file://$PROJECT_DIR$/src/adt/Auto.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -50,8 +46,8 @@
       <file leaf-file-name="Finestra.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Finestra.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.28640777">
-              <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.49190938">
+              <caret line="283" column="5" selection-start-line="283" selection-start-column="5" selection-end-line="283" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -60,14 +56,18 @@
     </leaf>
   </component>
   <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="REBASE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="PUSH_TAGS">
+      <GitPushTagMode />
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/RandomString.java" />
-        <option value="$PROJECT_DIR$/src/Finestra.java" />
         <option value="$PROJECT_DIR$/src/Finestra.form" />
+        <option value="$PROJECT_DIR$/src/Finestra.java" />
       </list>
     </option>
   </component>
@@ -367,6 +367,13 @@
       <option name="number" value="Default" />
       <updated>1454077933875</updated>
     </task>
+    <task id="LOCAL-00001" summary="1.2&#10; GUI fixes">
+      <created>1454078880310</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1454078880310</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -399,6 +406,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="1.2&#10; GUI fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.2&#10; GUI fixes" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
@@ -407,7 +418,7 @@
     <entry file="file://$PROJECT_DIR$/src/adt/Auto.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -419,8 +430,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Finestra.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28640777">
-          <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.49190938">
+          <caret line="283" column="5" selection-start-line="283" selection-start-column="5" selection-end-line="283" selection-end-column="5" />
           <folding />
         </state>
       </provider>

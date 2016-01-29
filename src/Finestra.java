@@ -285,7 +285,7 @@ public class Finestra extends JFrame {
 
     public static void main(String[] args) throws Exception {
         //main
-        Finestra f = new Finestra("Caronte 1.1 | By Hopeless13", 750, 400);
+        Finestra f = new Finestra("Caronte 1.1 | By Hopeless13", 750, 450);
     }
 
     public void coloraBottoneAndProgredisci() {
