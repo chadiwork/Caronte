@@ -60,9 +60,17 @@ public int getPercentualePieno() {
 @Override
 public void pop() throws Exception {
 	try {
+<<<<<<< HEAD
+		//rimetto apposto le proprietà del traghetto
 		this.numeroAuto--;
 		Auto tmp = (Auto)this.top();
 		this.lunghCORR=this.lunghCORR-tmp.getLunghezza();
+		//importante che il pop sia alla fine
+=======
+		this.numeroAuto--;
+		Auto tmp = (Auto)this.top();
+		this.lunghCORR=this.lunghCORR-tmp.getLunghezza();
+>>>>>>> origin/master
 		super.pop();
 	} catch (Exception e) {
 		e.printStackTrace();
