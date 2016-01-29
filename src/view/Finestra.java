@@ -1,3 +1,6 @@
+package view;
+
+import additionalResources.RandomString;
 import adt.Auto;
 import adt.Traghetto;
 
@@ -57,7 +60,7 @@ public class Finestra extends JFrame {
     //costruisco il traghetto con dimensione massima a piacere(200)
     private Traghetto<Auto> traghAttuale = new Traghetto<>(dimensioneTraghetto);
 
-    public Finestra(String title, int larghezza, int altezza) throws HeadlessException {
+    public Finestra(String title, int larghezza, int altezza) {
         //setup iniziale finestra
         super(title);
         this.setContentPane(new Finestra().rootPanel);
@@ -90,8 +93,7 @@ public class Finestra extends JFrame {
                 setSemaforo();
 
                 //inizializzazione estetica: magia, non toccare
-                if (txtAreaInseriti.getText().equals("Ancora nulla qui...") || txtAreaInseriti.getText().equals("Traghetto " +
-                        "vuoto")) {
+                if ("Ancora nulla qui...".equals(txtAreaInseriti.getText()) || "Traghetto vuoto".equals(txtAreaInseriti.getText())) {
                     txtAreaInseriti.setText("");
                 }
 
